@@ -1,6 +1,6 @@
 const app = require("./app");
 const mongoose = require("mongoose");
-const port = 400;
+const port = 4000;
 
 mongoose
   .connect("mongodb://localhost:27017/Elarning")
