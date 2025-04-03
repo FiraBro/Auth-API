@@ -11,5 +11,6 @@ dotenv.config({ path: "config.env" });
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
-
+const userRouter = require("./routes/userRouter");
+app.use("/api/v2/users", userRouter);
 module.exports = app;
