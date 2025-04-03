@@ -38,6 +38,7 @@ exports.createUser = async (req, res) => {
       name: req.body.name,
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
+      email:req.body.email,
       role: req.body.role,
     });
     res.status(200).json({
