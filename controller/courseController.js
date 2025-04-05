@@ -1,216 +1,121 @@
-const Course = require("../model/course");
+const Course = require("../models/course");
+const User = require("../models/user");
+const AppError = require("../utils/appError");
+const catchAsync = require("../utils/catchAsync");
 
-exports.getAllCourse = async (req, res, next) => {
-  try {
-    const queryString = req.query;
-    const queryObj = { ...queryString };
+// Create a new course
+exports.addCourse = catchAsync(async (req, res, next) => {
+  const courseData = req.body;
+  courseData.instructor = req.user.id; // Assuming instructor is the current user
+  const course = new Course(courseData);
 
-    // Exclude fields not meant for filtering
-    const excludeFields = ["page", "sort", "limit", "fields"];
-    excludeFields.forEach((el) => delete queryObj[el]);
+  await course.save();
+  res.status(201).json({
+    status: "success",
+    data: course,
+  });
+});
 
-    // Handle advanced filtering (gte, gt, lte, lt)
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    let query = JSON.parse(queryStr);
+// Get all courses
+exports.getAllCourse = catchAsync(async (req, res, next) => {
+  const courses = await Course.find().populate("instructor", "name email");
+  res.status(200).json({
+    status: "success",
+    results: courses.length,
+    data: courses,
+  });
+});
 
-    // Filter by title (if provided)
-    if (queryObj.title) {
-      query.title = { $regex: queryObj.title, $options: "i" }; // Case-insensitive search
-    }
+// Get a course by ID
+exports.getCourse = catchAsync(async (req, res, next) => {
+  const courseId = req.params.id;
+  const course = await Course.findById(courseId).populate(
+    "instructor",
+    "name email"
+  );
 
-    // Find products based on the final query
-    const course = await Course.find(query);
-
-    res.status(200).json({
-      status: "success",
-      length: course.length,
-      data: course,
-    });
-  } catch (err) {
-    next(err); // Pass error to the error handling middleware
-  }
-};
-
-exports.getCourse = async (req, res, next) => {
-  try {
-    // if(req.params.title)
-    if (!req.params.id) {
-      return res.status(400).json({
-        status: "fail",
-        message: "No ID found",
-      });
-    }
-    const course = await Course.findById(req.params.id);
-    if (!course) {
-      return res.status(404).json({
-        status: "fail",
-        message: "course not found",
-      });
-    }
-    res.status(200).json({
-      status: "success",
-      data: course,
-    });
-  } catch (error) {
-    next(error); // Pass error to the error handling middleware
-  }
-};
-
-exports.updateCourse = async (req, res, next) => {
-  try {
-    const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    if (!course) {
-      return res.status(404).json({
-        status: "fail",
-        message: "course not found",
-      });
-    }
-    res.status(200).json({
-      status: "success",
-      data: course,
-      message: "course successfully updated",
-    });
-  } catch (error) {
-    next(error); // Pass error to the error handling middleware
-  }
-};
-exports.deleteCourse = async (req, res, next) => {
-  try {
-    await Course.findByIdAndDelete(req.params.id);
-    res.status(200).json({
-      status: "success",
-      message: "You deleted course successfully",
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: "fail",
-      message: error,
-    });
-  }
-};
-
-// Get number of students registered for a course
-exports.getCourseStudentCount = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    if (!id) {
-      return res.status(400).json({
-        status: "fail",
-        message: "Course ID is required",
-      });
-    }
-
-    // Find the course and populate the students field
-    const course = await Course.findById(id).populate("students", "name email");
-
-    if (!course) {
-      return res.status(404).json({
-        status: "fail",
-        message: "Course not found",
-      });
-    }
-
-    // Count the number of students
-    const studentCount = course.students.length;
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        courseTitle: course.title,
-        studentCount: studentCount,
-        students: course.students, // Optional: include student details
-      },
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.addCourse = async (req, res) => {
-  // Check if image file is uploaded
-  if (!req.file) {
-    return res.status(400).json({
-      success: false,
-      message: "No thumbnail image file uploaded.",
-    });
+  if (!course) {
+    return next(new AppError("No course found with that ID", 404));
   }
 
-  // Destructure required fields from request body
-  const { title, instructor, description, price, category, content, rating } =
-    req.body;
+  res.status(200).json({
+    status: "success",
+    data: course,
+  });
+});
 
-  // Validate required fields
-  if (!title || !instructor || !description || !price || !category) {
-    return res.status(400).json({
-      success: false,
-      message:
-        "Title, instructor, description, price, and category are required.",
-    });
+// Update a course
+exports.updateCourse = catchAsync(async (req, res, next) => {
+  const courseId = req.params.id;
+  const updatedCourse = await Course.findByIdAndUpdate(courseId, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!updatedCourse) {
+    return next(new AppError("No course found with that ID", 404));
   }
 
-  try {
-    // Parse content if it comes as a string (from form-data)
-    let parsedContent = content;
-    if (typeof content === "string") {
-      parsedContent = JSON.parse(content);
-    }
+  res.status(200).json({
+    status: "success",
+    data: updatedCourse,
+  });
+});
 
-    // Validate content array structure if provided
-    if (parsedContent && Array.isArray(parsedContent)) {
-      for (const module of parsedContent) {
-        if (!module.moduleTitle || !module.videoUrl || !module.duration) {
-          return res.status(400).json({
-            success: false,
-            message:
-              "Each content module must have moduleTitle, videoUrl, and duration.",
-          });
-        }
-      }
-    }
+// Delete a course
+exports.deleteCourse = catchAsync(async (req, res, next) => {
+  const courseId = req.params.id;
+  await Course.findByIdAndDelete(courseId);
 
-    // Validate rating if provided
-    if (rating && (rating < 1 || rating > 5)) {
-      return res.status(400).json({
-        success: false,
-        message: "Rating must be between 1 and 5.",
-      });
-    }
-
-    // Create new course object
-    const course = new Course({
-      title,
-      instructor,
-      description,
-      price,
-      category,
-      content: parsedContent || [], // Default to empty array if not provided
-      image: req.file.filename, // Store filename from uploaded file
-      rating: rating || undefined, // Only set if provided
-    });
-
-    // Save to database
-    await course.save();
-
-    res.status(201).json({
-      success: true,
-      message: "Course created successfully",
-      data: {
-        courseId: course._id,
-        title: course.title,
-        image: course.image,
-      },
-    });
-  } catch (err) {
-    console.error("Error saving course:", err);
-    res.status(500).json({
-      success: false,
-      message: "Failed to create course",
-      error: err.message,
-    });
+  if (!courseId) {
+    return next(new AppError("No course found with that ID", 404));
   }
-};
+
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+});
+
+// Enroll a student in a course
+exports.enrollStudent = catchAsync(async (req, res, next) => {
+  const courseId = req.params.id;
+  const userId = req.user.id; // Assuming you have user ID from authentication middleware
+
+  const course = await Course.findById(courseId);
+  if (!course) {
+    return next(new AppError("No course found with that ID", 404));
+  }
+
+  const user = await User.findById(userId);
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
+  }
+
+  if (course.students.includes(userId)) {
+    return next(new AppError("You are already enrolled in this course", 400));
+  }
+
+  course.students.push(userId);
+  await course.save();
+
+  res.status(200).json({
+    status: "success",
+    message: "You have been enrolled in the course",
+  });
+});
+
+// Get student count for a course
+exports.getCourseStudentCount = catchAsync(async (req, res, next) => {
+  const courseId = req.params.id;
+  const course = await Course.findById(courseId);
+
+  if (!course) {
+    return next(new AppError("No course found with that ID", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    count: course.students.length,
+  });
+});
