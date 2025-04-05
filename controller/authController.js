@@ -1,116 +1,104 @@
 const User = require("../models/user");
-const bcrypt = require("bcrypt");
+const AppError = require("../utils/appError");
+const catchAsync = require("../utils/catchAsync");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
-// exports.signup = async (req, res) => {
-//   try {
-//     // Validate if all required fields are present
-//     if (
-//       !req.body.name ||
-//       !req.body.email ||
-//       !req.body.password ||
-//       !req.body.passwordConfirm
-//     ) {
-//       return res.status(400).json({
-//         status: "fail",
-//         message: "Please fill in all required fields",
-//       });
-//     }
+// Generate JWT token
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+};
 
-//     // Validate password confirmation
-//     if (req.body.password !== req.body.passwordConfirm) {
-//       return res.status(400).json({
-//         status: "fail",
-//         message: "Passwords do not match",
-//       });
-//     }
+// Sign up a new user
+exports.register = catchAsync(async (req, res, next) => {
+  const { name, email, password, role } = req.body;
 
-//     // Hash the password
-//     const hashedPassword = await bcrypt.hash(req.body.password, 12);
+  const hashedPassword = await bcrypt.hash(password, 12);
 
-//     // Create a new user with hashed password
-//     const user = await User.create({
-//       name: req.body.name,
-//       password: hashedPassword,
-//       email: req.body.email,
-//       role: req.body.role,
-//     });
+  const user = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    role,
+  });
 
-//     if (!user) {
-//       return res.status(400).json({
-//         status: "fail",
-//         message: "Failed to create user",
-//       });
-//     }
+  const token = generateToken(user._id);
 
-//     // Generate JWT token
-//     const token = jwt.sign(user._id, process.env.JWT_SECRET);
+  res.status(201).json({
+    status: "success",
+    token,
+    data: user,
+  });
+});
 
-//     res.status(201).json({
-//       status: "success",
-//       token,
-//       data: {
-//         user,
-//       },
-//     });
-//   } catch (error) {
-//     console.error(error); // Log the error for debugging
-//     res.status(500).json({
-//       status: "fail",
-//       message: "Internal Server Error",
-//     });
-//   }
-// };
+// Login existing user
+exports.login = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
 
-exports.register = async (req, res, next) => {
-    try {
-      const { name, email, password, passwordConfirm, role } = req.body;
-  
-      if (!name || !email || !password || !passwordConfirm || !role) {
-        return res.status(400).json({
-          status: "fail",
-          message: "Please provide all required fields",
-        });
-      }
-  
-      if (password !== passwordConfirm) {
-        return res.status(400).json({
-          status: "fail",
-          message: "Passwords do not match",
-        });
-      }
-  
-      const user = await User.create({
-        name: req.body.name,
-        email: req.body.email,
-        password: password,
-        passwordConfirm: req.body.passwordConfirm,
-        role: req.body.role,
-      });
-  
-      if (!user) {
-        return res.status(500).json({
-          status: "fail",
-          message: "Failed to create user",
-        });
-      }
-  
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-  
-      res.status(201).json({
-        status: "success",
-        token,
-        data: {
-          user: {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-          },
-        },
-      });
-    } catch (error) {
-      console.error(error);
-      next(error);
+  if (!email || !password) {
+    return next(new AppError("Please provide both email and password", 400));
+  }
+
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    return next(new AppError("Incorrect email or password", 401));
+  }
+
+  const token = generateToken(user._id);
+
+  res.status(200).json({
+    status: "success",
+    token,
+    data: user,
+  });
+});
+
+// Protect routes from unauthorized access
+exports.protect = catchAsync(async (req, res, next) => {
+  let token;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+
+  if (!token) {
+    return next(
+      new AppError("You are not logged in! Please log in to access.", 401)
+    );
+  }
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  const currentUser = await User.findById(decoded.id);
+
+  if (!currentUser) {
+    return next(
+      new AppError(
+        "The user belonging to this token does no longer exist.",
+        401
+      )
+    );
+  }
+
+  req.user = currentUser;
+  next();
+});
+
+// Restrict routes to specific roles
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You do not have permission to perform this action", 403)
+      );
     }
+
+    next();
   };
+};
