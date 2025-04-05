@@ -6,8 +6,9 @@ const courseSchema = new mongoose.Schema({
     required: [true, "Please provide a course title"],
   },
   instructor: {
-    type: String,
-    required: [true, "Please provide the instructor name"],
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "Please provide the instructor ID"],
   },
   description: {
     type: String,
@@ -30,7 +31,7 @@ const courseSchema = new mongoose.Schema({
   ],
   image: {
     type: String, // Course thumbnail image URL
-    required:[true,'please provide a thubnail']
+    required: [true, "Please provide a thumbnail"],
   },
   rating: {
     type: Number,
