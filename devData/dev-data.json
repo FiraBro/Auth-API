@@ -1,0 +1,640 @@
+[
+  {
+    "title": "JavaScript Fundamentals",
+    "instructor": "6161a123456789abcdef1234",
+    "description": "Learn the basics of JavaScript programming language",
+    "price": 49.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "Introduction to JavaScript",
+        "videoUrl": "https://example.com/video1",
+        "duration": 30
+      },
+      {
+        "moduleTitle": "Variables and Data Types",
+        "videoUrl": "https://example.com/video2",
+        "duration": 45
+      }
+    ],
+    "image": "https://example.com/js-course.jpg",
+    "rating": 4.5,
+    "students": ["6161a123456789abcdef5678", "6161a123456789abcdef9101"]
+  },
+  {
+    "title": "Python for Data Science",
+    "instructor": "6161a123456789abcdef1235",
+    "description": "Master Python for data analysis and visualization",
+    "price": 79.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "Python Basics",
+        "videoUrl": "https://example.com/video3",
+        "duration": 40
+      },
+      {
+        "moduleTitle": "NumPy and Pandas",
+        "videoUrl": "https://example.com/video4",
+        "duration": 60
+      }
+    ],
+    "image": "https://example.com/python-ds.jpg",
+    "rating": 4.8,
+    "students": ["6161a123456789abcdef5678"]
+  },
+  {
+    "title": "React Native Mobile Development",
+    "instructor": "6161a123456789abcdef1236",
+    "description": "Build cross-platform mobile apps with React Native",
+    "price": 89.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "React Native Setup",
+        "videoUrl": "https://example.com/video5",
+        "duration": 35
+      },
+      {
+        "moduleTitle": "Building Your First App",
+        "videoUrl": "https://example.com/video6",
+        "duration": 50
+      }
+    ],
+    "image": "https://example.com/react-native.jpg",
+    "rating": 4.7,
+    "students": []
+  },
+  {
+    "title": "AWS Cloud Practitioner",
+    "instructor": "6161a123456789abcdef1237",
+    "description": "Learn the fundamentals of AWS cloud services",
+    "price": 99.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "Cloud Concepts",
+        "videoUrl": "https://example.com/video7",
+        "duration": 45
+      },
+      {
+        "moduleTitle": "Core AWS Services",
+        "videoUrl": "https://example.com/video8",
+        "duration": 55
+      }
+    ],
+    "image": "https://example.com/aws-course.jpg",
+    "rating": 4.6,
+    "students": ["6161a123456789abcdef9101"]
+  },
+  {
+    "title": "Machine Learning Basics",
+    "instructor": "6161a123456789abcdef1238",
+    "description": "Introduction to machine learning algorithms",
+    "price": 119.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "Supervised Learning",
+        "videoUrl": "https://example.com/video9",
+        "duration": 60
+      },
+      {
+        "moduleTitle": "Unsupervised Learning",
+        "videoUrl": "https://example.com/video10",
+        "duration": 70
+      }
+    ],
+    "image": "https://example.com/ml-course.jpg",
+    "rating": 4.9,
+    "students": []
+  },
+  {
+    "title": "Cybersecurity Fundamentals",
+    "instructor": "6161a123456789abcdef1239",
+    "description": "Learn essential cybersecurity concepts",
+    "price": 89.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "Network Security",
+        "videoUrl": "https://example.com/video11",
+        "duration": 50
+      },
+      {
+        "moduleTitle": "Encryption Techniques",
+        "videoUrl": "https://example.com/video12",
+        "duration": 45
+      }
+    ],
+    "image": "https://example.com/cyber-course.jpg",
+    "rating": 4.4,
+    "students": ["6161a123456789abcdef5678"]
+  },
+  {
+    "title": "iOS App Development with Swift",
+    "instructor": "6161a123456789abcdef1240",
+    "description": "Build iOS apps using Swift programming language",
+    "price": 109.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "Swift Basics",
+        "videoUrl": "https://example.com/video13",
+        "duration": 40
+      },
+      {
+        "moduleTitle": "UIKit Fundamentals",
+        "videoUrl": "https://example.com/video14",
+        "duration": 55
+      }
+    ],
+    "image": "https://example.com/swift-course.jpg",
+    "rating": 4.7,
+    "students": []
+  },
+  {
+    "title": "Blockchain and Cryptocurrency",
+    "instructor": "6161a123456789abcdef1241",
+    "description": "Understand blockchain technology and crypto assets",
+    "price": 129.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "Blockchain Basics",
+        "videoUrl": "https://example.com/video15",
+        "duration": 50
+      },
+      {
+        "moduleTitle": "Smart Contracts",
+        "videoUrl": "https://example.com/video16",
+        "duration": 65
+      }
+    ],
+    "image": "https://example.com/blockchain-course.jpg",
+    "rating": 4.8,
+    "students": ["6161a123456789abcdef5678", "6161a123456789abcdef9101"]
+  },
+  {
+    "title": "DevOps Essentials",
+    "instructor": "6161a123456789abcdef1242",
+    "description": "Learn CI/CD pipelines and infrastructure as code",
+    "price": 99.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "Docker and Kubernetes",
+        "videoUrl": "https://example.com/video17",
+        "duration": 55
+      },
+      {
+        "moduleTitle": "Jenkins Pipelines",
+        "videoUrl": "https://example.com/video18",
+        "duration": 60
+      }
+    ],
+    "image": "https://example.com/devops-course.jpg",
+    "rating": 4.6,
+    "students": []
+  },
+  {
+    "title": "UI/UX Design Principles",
+    "instructor": "6161a123456789abcdef1243",
+    "description": "Master user interface and experience design",
+    "price": 79.99,
+    "category": "Technology",
+    "content": [
+      {
+        "moduleTitle": "Design Thinking",
+        "videoUrl": "https://example.com/video19",
+        "duration": 45
+      },
+      {
+        "moduleTitle": "Figma Basics",
+        "videoUrl": "https://example.com/video20",
+        "duration": 50
+      }
+    ],
+    "image": "https://example.com/uiux-course.jpg",
+    "rating": 4.5,
+    "students": ["6161a123456789abcdef5678"]
+  },
+  {
+    "title": "Startup Fundamentals",
+    "instructor": "6161a123456789abcdef1244",
+    "description": "Learn how to launch and grow your startup",
+    "price": 69.99,
+    "category": "Business",
+    "content": [
+      {
+        "moduleTitle": "Idea Validation",
+        "videoUrl": "https://example.com/video21",
+        "duration": 40
+      },
+      {
+        "moduleTitle": "Lean Startup Methodology",
+        "videoUrl": "https://example.com/video22",
+        "duration": 50
+      }
+    ],
+    "image": "https://example.com/startup-course.jpg",
+    "rating": 4.7,
+    "students": ["6161a123456789abcdef9101"]
+  },
+  {
+    "title": "Digital Marketing Mastery",
+    "instructor": "6161a123456789abcdef1245",
+    "description": "Comprehensive guide to digital marketing strategies",
+    "price": 59.99,
+    "category": "Business",
+    "content": [
+      {
+        "moduleTitle": "SEO Fundamentals",
+        "videoUrl": "https://example.com/video23",
+        "duration": 45
+      },
+      {
+        "moduleTitle": "Social Media Marketing",
+        "videoUrl": "https://example.com/video24",
+        "duration": 55
+      }
+    ],
+    "image": "https://example.com/digital-marketing.jpg",
+    "rating": 4.4,
+    "students": ["6161a123456789abcdef5678"]
+  },
+  {
+    "title": "Financial Analysis for Beginners",
+    "instructor": "6161a123456789abcdef1246",
+    "description": "Learn to analyze financial statements",
+    "price": 79.99,
+    "category": "Business",
+    "content": [
+      {
+        "moduleTitle": "Balance Sheet Analysis",
+        "videoUrl": "https://example.com/video25",
+        "duration": 50
+      },
+      {
+        "moduleTitle": "Income Statement Analysis",
+        "videoUrl": "https://example.com/video26",
+        "duration": 60
+      }
+    ],
+    "image": "https://example.com/financial-analysis.jpg",
+    "rating": 4.6,
+    "students": []
+  },
+  {
+    "title": "Project Management Professional",
+    "instructor": "6161a123456789abcdef1247",
+    "description": "Prepare for PMP certification exam",
+    "price": 129.99,
+    "category": "Business",
+    "content": [
+      {
+        "moduleTitle": "Project Lifecycle",
+        "videoUrl": "https://example.com/video27",
+        "duration": 55
+      },
+      {
+        "moduleTitle": "Risk Management",
+        "videoUrl": "https://example.com/video28",
+        "duration": 65
+      }
+    ],
+    "image": "https://example.com/pmp-course.jpg",
+    "rating": 4.8,
+    "students": ["6161a123456789abcdef5678", "6161a123456789abcdef9101"]
+  },
+  {
+    "title": "Negotiation Skills",
+    "instructor": "6161a123456789abcdef1248",
+    "description": "Master the art of negotiation in business",
+    "price": 49.99,
+    "category": "Business",
+    "content": [
+      {
+        "moduleTitle": "Negotiation Strategies",
+        "videoUrl": "https://example.com/video29",
+        "duration": 40
+      },
+      {
+        "moduleTitle": "Win-Win Techniques",
+        "videoUrl": "https://example.com/video30",
+        "duration": 45
+      }
+    ],
+    "image": "https://example.com/negotiation-course.jpg",
+    "rating": 4.5,
+    "students": []
+  },
+  {
+    "title": "Business Analytics with Excel",
+    "instructor": "6161a123456789abcdef1249",
+    "description": "Advanced data analysis using Excel",
+    "price": 59.99,
+    "category": "Business",
+    "content": [
+      {
+        "moduleTitle": "Pivot Tables",
+        "videoUrl": "https://example.com/video31",
+        "duration": 45
+      },
+      {
+        "moduleTitle": "Data Visualization",
+        "videoUrl": "https://example.com/video32",
+        "duration": 50
+      }
+    ],
+    "image": "https://example.com/excel-course.jpg",
+    "rating": 4.3,
+    "students": ["6161a123456789abcdef5678"]
+  },
+  {
+    "title": "Leadership Principles",
+    "instructor": "6161a123456789abcdef1250",
+    "description": "Develop essential leadership skills",
+    "price": 69.99,
+    "category": "Business",
+    "content": [
+      {
+        "moduleTitle": "Leadership Styles",
+        "videoUrl": "https://example.com/video33",
+        "duration": 40
+      },
+      {
+        "moduleTitle": "Team Motivation",
+        "videoUrl": "https://example.com/video34",
+        "duration": 45
+      }
+    ],
+    "image": "https://example.com/leadership-course.jpg",
+    "rating": 4.7,
+    "students": ["6161a123456789abcdef9101"]
+  },
+  {
+    "title": "E-commerce Strategies",
+    "instructor": "6161a123456789abcdef1251",
+    "description": "Build and grow your online store",
+    "price": 79.99,
+    "category": "Business",
+    "content": [
+      {
+        "moduleTitle": "Shopify Setup",
+        "videoUrl": "https://example.com/video35",
+        "duration": 50
+      },
+      {
+        "moduleTitle": "Conversion Optimization",
+        "videoUrl": "https://example.com/video36",
+        "duration": 55
+      }
+    ],
+    "image": "https://example.com/ecommerce-course.jpg",
+    "rating": 4.6,
+    "students": []
+  },
+  {
+    "title": "Public Speaking Mastery",
+    "instructor": "6161a123456789abcdef1252",
+    "description": "Overcome fear and speak with confidence",
+    "price": 49.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Overcoming Stage Fright",
+        "videoUrl": "https://example.com/video37",
+        "duration": 35
+      },
+      {
+        "moduleTitle": "Speech Structure",
+        "videoUrl": "https://example.com/video38",
+        "duration": 40
+      }
+    ],
+    "image": "https://example.com/public-speaking.jpg",
+    "rating": 4.8,
+    "students": ["6161a123456789abcdef5678", "6161a123456789abcdef9101"]
+  },
+  {
+    "title": "Time Management Essentials",
+    "instructor": "6161a123456789abcdef1253",
+    "description": "Boost productivity with effective time management",
+    "price": 39.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Prioritization Techniques",
+        "videoUrl": "https://example.com/video39",
+        "duration": 30
+      },
+      {
+        "moduleTitle": "Eliminating Time Wasters",
+        "videoUrl": "https://example.com/video40",
+        "duration": 35
+      }
+    ],
+    "image": "https://example.com/time-management.jpg",
+    "rating": 4.6,
+    "students": ["6161a123456789abcdef5678"]
+  },
+  {
+    "title": "Mindfulness Meditation",
+    "instructor": "6161a123456789abcdef1254",
+    "description": "Reduce stress and improve focus through meditation",
+    "price": 29.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Breathing Techniques",
+        "videoUrl": "https://example.com/video41",
+        "duration": 25
+      },
+      {
+        "moduleTitle": "Body Scan Meditation",
+        "videoUrl": "https://example.com/video42",
+        "duration": 30
+      }
+    ],
+    "image": "https://example.com/meditation-course.jpg",
+    "rating": 4.9,
+    "students": []
+  },
+  {
+    "title": "Emotional Intelligence",
+    "instructor": "6161a123456789abcdef1255",
+    "description": "Develop self-awareness and relationship skills",
+    "price": 59.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Self-Awareness",
+        "videoUrl": "https://example.com/video43",
+        "duration": 40
+      },
+      {
+        "moduleTitle": "Empathy Development",
+        "videoUrl": "https://example.com/video44",
+        "duration": 45
+      }
+    ],
+    "image": "https://example.com/eq-course.jpg",
+    "rating": 4.7,
+    "students": ["6161a123456789abcdef9101"]
+  },
+  {
+    "title": "Habit Formation Science",
+    "instructor": "6161a123456789abcdef1256",
+    "description": "Learn how to build and break habits effectively",
+    "price": 49.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Habit Loop",
+        "videoUrl": "https://example.com/video45",
+        "duration": 35
+      },
+      {
+        "moduleTitle": "Environment Design",
+        "videoUrl": "https://example.com/video46",
+        "duration": 40
+      }
+    ],
+    "image": "https://example.com/habits-course.jpg",
+    "rating": 4.8,
+    "students": ["6161a123456789abcdef5678"]
+  },
+  {
+    "title": "Financial Literacy Basics",
+    "instructor": "6161a123456789abcdef1257",
+    "description": "Master personal finance fundamentals",
+    "price": 39.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Budgeting 101",
+        "videoUrl": "https://example.com/video47",
+        "duration": 30
+      },
+      {
+        "moduleTitle": "Debt Management",
+        "videoUrl": "https://example.com/video48",
+        "duration": 35
+      }
+    ],
+    "image": "https://example.com/financial-literacy.jpg",
+    "rating": 4.5,
+    "students": []
+  },
+  {
+    "title": "Creative Writing Workshop",
+    "instructor": "6161a123456789abcdef1258",
+    "description": "Unlock your creative writing potential",
+    "price": 49.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Character Development",
+        "videoUrl": "https://example.com/video49",
+        "duration": 40
+      },
+      {
+        "moduleTitle": "Plot Structure",
+        "videoUrl": "https://example.com/video50",
+        "duration": 45
+      }
+    ],
+    "image": "https://example.com/writing-course.jpg",
+    "rating": 4.6,
+    "students": ["6161a123456789abcdef5678", "6161a123456789abcdef9101"]
+  },
+  {
+    "title": "Speed Reading Techniques",
+    "instructor": "6161a123456789abcdef1259",
+    "description": "Read faster with better comprehension",
+    "price": 29.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Eye Movement Exercises",
+        "videoUrl": "https://example.com/video51",
+        "duration": 25
+      },
+      {
+        "moduleTitle": "Comprehension Strategies",
+        "videoUrl": "https://example.com/video52",
+        "duration": 30
+      }
+    ],
+    "image": "https://example.com/speed-reading.jpg",
+    "rating": 4.4,
+    "students": ["6161a123456789abcdef5678"]
+  },
+  {
+    "title": "Positive Psychology",
+    "instructor": "6161a123456789abcdef1260",
+    "description": "Science of happiness and well-being",
+    "price": 59.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Gratitude Practices",
+        "videoUrl": "https://example.com/video53",
+        "duration": 40
+      },
+      {
+        "moduleTitle": "Strengths Identification",
+        "videoUrl": "https://example.com/video54",
+        "duration": 45
+      }
+    ],
+    "image": "https://example.com/positive-psychology.jpg",
+    "rating": 4.7,
+    "students": []
+  },
+  {
+    "title": "Career Change Strategies",
+    "instructor": "6161a123456789abcdef1261",
+    "description": "Navigate a successful career transition",
+    "price": 69.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Skills Assessment",
+        "videoUrl": "https://example.com/video55",
+        "duration": 45
+      },
+      {
+        "moduleTitle": "Networking Strategies",
+        "videoUrl": "https://example.com/video56",
+        "duration": 50
+      }
+    ],
+    "image": "https://example.com/career-change.jpg",
+    "rating": 4.5,
+    "students": ["6161a123456789abcdef9101"]
+  },
+  {
+    "title": "Nutrition for Busy Professionals",
+    "instructor": "6161a123456789abcdef1262",
+    "description": "Healthy eating habits for a busy lifestyle",
+    "price": 39.99,
+    "category": "Self Development",
+    "content": [
+      {
+        "moduleTitle": "Meal Planning",
+        "videoUrl": "https://example.com/video57",
+        "duration": 35
+      },
+      {
+        "moduleTitle": "Healthy Snacking",
+        "videoUrl": "https://example.com/video58",
+        "duration": 30
+      }
+    ],
+    "image": "https://example.com/nutrition-course.jpg",
+    "rating": 4.6,
+    "students": ["6161a123456789abcdef5678"]
+  }
+]
