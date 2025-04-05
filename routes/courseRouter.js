@@ -4,7 +4,7 @@ const courseController = require("../controller/courseController");
 const authController = require("../controller/authController");
 const multer = require("multer");
 const path = require("path");
-// http://localhost:3000/uploads/courses/filename
+
 // Multer configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -37,20 +37,23 @@ const upload = multer({
 });
 
 // Routes
-courseRoutes.route("/").get(courseController.getAllCourse).post(
-  authController.protect,
-  authController.restrictTo("admin"),
-  upload.single("image"), // Add multer middleware for single file upload
-  courseController.addCourse // Changed from createCourse to match our controller
-);
+courseRoutes
+  .route("/")
+  .get(courseController.getAllCourse)
+  .post(
+    authController.protect,
+    authController.restrictTo("admin"),
+    upload.single("image"),
+    courseController.addCourse
+  );
 
 courseRoutes
   .route("/:id")
   .get(courseController.getCourse)
-  .post(
-    courseController.updateCourse
-  )
+  .post(courseController.updateCourse)
   .delete(
+    authController.protect,
+    authController.restrictTo("admin"),
     courseController.deleteCourse
   );
 
@@ -58,5 +61,10 @@ courseRoutes
 courseRoutes
   .route("/:id/students")
   .get(authController.protect, courseController.getCourseStudentCount);
+
+// Enroll student in a course
+courseRoutes
+  .route("/:id/enroll")
+  .post(authController.protect, courseController.enrollStudent);
 
 module.exports = courseRoutes;
