@@ -1,40 +1,35 @@
 const User = require("../models/user");
 const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
+const { filterObj } = require("../utils/helpers");
 
-exports.getAllUser = async (req, res) => {
-  try {
-    const user = await User.find();
-    res.status(200).json({
-      status: "success",
-      data: {
-        user: user,
-      },
-    });
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error,
-    });
+exports.getAllUser = catchAsync(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    status: "success",
+    results: users.length,
+    data: {
+      users,
+    },
+  });
+});
+
+exports.getUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
   }
-};
-exports.getUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    res.status(200).json({
-      status: "success",
-      data: {
-        user: user,
-      },
-    });
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error,
-    });
-  }
-};
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      user,
+    },
+  });
+});
+
 exports.updateMe = catchAsync(async (req, res, next) => {
-  // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
       new AppError(
@@ -44,10 +39,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     );
   }
 
-  // 2) Filtered out unwanted fields names that are not allowed to be updated
   const filteredBody = filterObj(req.body, "name", "email");
-
-  // 3) Update user document
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,
     runValidators: true,
@@ -61,23 +53,15 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteUser = async (req, res) => {
-  try {
-    const deletedUser = await User.findByIdAndDelete(req.params.id);
-    if (!deletedUser) {
-      return res.status(404).json({
-        status: "fail",
-        message: "Incorrect ID",
-      });
-    }
-    res.status(200).json({
-      status: "success",
-      message: "User succusfully deleted",
-    });
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error,
-    });
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const deletedUser = await User.findByIdAndDelete(req.params.id);
+
+  if (!deletedUser) {
+    return next(new AppError("No user found with that ID", 404));
   }
-};
+
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+});
